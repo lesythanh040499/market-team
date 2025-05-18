@@ -6,6 +6,8 @@ import { CloudinaryModule } from './cloudinary/cloudinary.module';
 import { DbModule } from './common/db/db.module';
 import { UsersModule } from './users/users.module';
 import { ContributionModule } from './contribution/contribution.module';
+import { ExpenseModule } from './expense/expense.module';
+import { ExpenseItemModule } from './expense-item/expense-item.module';
 
 @Module({
   imports: [
@@ -14,6 +16,8 @@ import { ContributionModule } from './contribution/contribution.module';
     CloudinaryModule,
     UsersModule,
     ContributionModule,
+    ExpenseModule,
+    ExpenseItemModule,
   ],
   controllers: [AppController],
   providers: [AppService],

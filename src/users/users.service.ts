@@ -1,9 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from 'src/entities';
 import { Repository } from 'typeorm';
+import { CreateUserDto } from './dto/create-user.dto';
 
 @Injectable()
 export class UsersService {
@@ -17,6 +16,12 @@ export class UsersService {
     return this.usersRepository.save(user);
   }
 
+  getOwner() {
+    return this.usersRepository.findOne({
+      where: { is_manage: true },
+    });
+  }
+
   findAll() {
     return this.usersRepository.find();
   }
@@ -27,8 +32,20 @@ export class UsersService {
     });
   }
 
-  async update(id: number, updateUserDto: UpdateUserDto) {
-    await this.usersRepository.update(id, updateUserDto);
+  async update(id: number) {
+    await this.usersRepository
+      .createQueryBuilder()
+      .update()
+      .set({ is_manage: false })
+      .where('id != :id', { id })
+      .execute();
+
+    await this.usersRepository
+      .createQueryBuilder()
+      .update()
+      .set({ is_manage: true })
+      .where('id = :id', { id })
+      .execute();
 
     return this.usersRepository.findOne({
       where: { id },

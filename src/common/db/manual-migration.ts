@@ -17,12 +17,28 @@ const dataSource = new DataSource({
 async function runMigration() {
   await dataSource.initialize();
 
-  const sqlFile = path.join(__dirname, './migrations/schema.sql');
-  const sql = fs.readFileSync(sqlFile, 'utf8');
+  const migrationsDir = path.join(__dirname, './migrations');
 
-  await dataSource.query(sql);
+  const sqlFiles = fs
+    .readdirSync(migrationsDir)
+    .filter((file) => file.endsWith('.sql'))
+    .sort();
+
+  for (const file of sqlFiles) {
+    const filePath = path.join(migrationsDir, file);
+    const sql = fs.readFileSync(filePath, 'utf8');
+    await dataSource.query(sql);
+  }
 
   await dataSource.destroy();
+  console.info('✅ All migrations ran successfully!');
+
+  // const sqlFile = path.join(__dirname, './migrations/schema.sql');
+  // const sql = fs.readFileSync(sqlFile, 'utf8');
+
+  // await dataSource.query(sql);
+
+  // await dataSource.destroy();
 }
 
 runMigration().catch((err) => {

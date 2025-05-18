@@ -1,5 +1,5 @@
 -- Bảng người dùng
-CREATE TABLE "user" (
+CREATE TABLE IF NOT EXISTS  "user" (
     id SERIAL PRIMARY KEY,
     name TEXT NOT NULL,
     proof_image_url TEXT,
@@ -9,7 +9,7 @@ CREATE TABLE "user" (
 );
 
 -- Bảng đóng quỹ
-CREATE TABLE contribution (
+CREATE TABLE IF NOT EXISTS contribution (
     id SERIAL PRIMARY KEY,
     user_id INT NOT NULL,
     amount NUMERIC NOT NULL,
@@ -22,7 +22,7 @@ CREATE TABLE contribution (
 );
 
 -- Bảng chi tiêu
-CREATE TABLE expense (
+CREATE TABLE IF NOT EXISTS expense (
     id SERIAL PRIMARY KEY,
     buyer_id INT NOT NULL,
     total_amount NUMERIC NOT NULL,
@@ -33,7 +33,7 @@ CREATE TABLE expense (
 );
 
 -- Bảng mục chi tiêu
-CREATE TABLE expense_item (
+CREATE TABLE IF NOT EXISTS expense_item (
     id SERIAL PRIMARY KEY,
     expense_id INT NOT NULL,
     item_name TEXT NOT NULL,
@@ -45,7 +45,7 @@ CREATE TABLE expense_item (
 );
 
 
-CREATE TABLE transfer (
+CREATE TABLE IF NOT EXISTS transfer (
     id SERIAL PRIMARY KEY,
     from_user_id INT NOT NULL,
     to_user_id INT NOT NULL,
@@ -56,6 +56,8 @@ CREATE TABLE transfer (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
+ALTER TABLE expense_item
+ADD column is_paid BOOLEAN NOT NULL DEFAULT FALSE;
 
 
 
