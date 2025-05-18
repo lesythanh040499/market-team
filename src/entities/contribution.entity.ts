@@ -9,18 +9,27 @@ import {
 } from 'typeorm';
 
 @Entity()
-export class User extends BaseEntity {
+export class Contribution extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
   @Column()
-  name: string;
+  user_id: number;
 
   @Column()
-  proof_image_url: string;
+  amount: number;
 
-  @Column({ default: true })
-  is_manage: boolean;
+  @Column()
+  debt_paid: number;
+
+  @Column()
+  fund_added: number;
+
+  @Column()
+  date: Date;
+
+  @Column()
+  image_transaction: string;
 
   @CreateDateColumn({
     type: 'timestamp',
