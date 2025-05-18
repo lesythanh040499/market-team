@@ -12,6 +12,7 @@ async function bootstrap() {
     AppModule,
     appOptions,
   );
+  app.enableCors();
 
   const configService = app.get(ConfigService);
 
