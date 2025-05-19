@@ -5,8 +5,8 @@ export class CreateUserDto {
   name: string;
 
   @ApiProperty({ example: 'https://example.com/image.jpg' })
-  proof_image_url: string;
+  proofImageUrl: string;
 
   @ApiProperty({ example: true, required: false })
-  is_manage?: boolean;
+  isManage?: boolean;
 }

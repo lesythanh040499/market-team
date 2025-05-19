@@ -10,6 +10,7 @@ import { FileInterceptor, FilesInterceptor } from '@nestjs/platform-express';
 import { AppService } from './app.service';
 import { CloudinaryResponse } from './cloudinary/cloudinary.i';
 import { CloudinaryService } from './cloudinary/cloudinary.service';
+import { ApiBody, ApiConsumes, ApiOperation } from '@nestjs/swagger';
 
 @Controller()
 export class AppController {
@@ -24,6 +25,19 @@ export class AppController {
   }
 
   @Post('upload')
+  @ApiOperation({ summary: 'Upload proof image' })
+  @ApiConsumes('multipart/form-data')
+  @ApiBody({
+    schema: {
+      type: 'object',
+      properties: {
+        file: {
+          type: 'string',
+          format: 'binary',
+        },
+      },
+    },
+  })
   @UseInterceptors(FileInterceptor('file'))
   uploadImage(
     @UploadedFile() file: Express.Multer.File,

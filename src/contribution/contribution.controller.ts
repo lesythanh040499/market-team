@@ -13,6 +13,11 @@ export class ContributionController {
     return this.contributionService.findAll();
   }
 
+  @Get('remain-fund')
+  getRemainFund() {
+    return this.contributionService.getRemainFund();
+  }
+
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.contributionService.findOne(+id);

@@ -52,4 +52,16 @@ export class ContributionService {
   remove(id: number) {
     return `This action removes a #${id} contribution`;
   }
+
+  async getRemainFund() {
+    const [balance] = await this.contributionsRepository.query(`
+      SELECT 
+      (SELECT COALESCE(SUM(fund_added), 0) FROM contribution) 
+      - 
+      (SELECT COALESCE(SUM(amount), 0) FROM expense_item WHERE is_shared = true) 
+      AS balance;
+  `);
+
+    return balance;
+  }
 }

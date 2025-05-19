@@ -16,11 +16,11 @@ export class User extends BaseEntity {
   @Column()
   name: string;
 
-  @Column()
-  proof_image_url: string;
+  @Column({ name: 'proof_image_url', type: 'text' })
+  proofImageUrl: string;
 
-  @Column({ default: true })
-  is_manage: boolean;
+  @Column({ name: 'is_manage', type: 'boolean', default: true })
+  isManage: boolean;
 
   @CreateDateColumn({
     type: 'timestamp',

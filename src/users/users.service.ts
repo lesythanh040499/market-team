@@ -18,7 +18,7 @@ export class UsersService {
 
   getOwner() {
     return this.usersRepository.findOne({
-      where: { is_manage: true },
+      where: { isManage: true },
     });
   }
 
@@ -36,14 +36,14 @@ export class UsersService {
     await this.usersRepository
       .createQueryBuilder()
       .update()
-      .set({ is_manage: false })
+      .set({ isManage: false })
       .where('id != :id', { id })
       .execute();
 
     await this.usersRepository
       .createQueryBuilder()
       .update()
-      .set({ is_manage: true })
+      .set({ isManage: true })
       .where('id = :id', { id })
       .execute();
 

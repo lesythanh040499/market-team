@@ -10,14 +10,6 @@ import {
 
 export class CreateExpenseItemDto {
   @ApiProperty({
-    description: 'ID của bản ghi chi tiêu (expense)',
-    example: 1,
-  })
-  @IsInt()
-  @IsNotEmpty()
-  expenseId: number;
-
-  @ApiProperty({
     description: 'Tên mục chi tiêu',
     example: 'Mua nước uống',
   })
@@ -40,14 +32,6 @@ export class CreateExpenseItemDto {
   @IsBoolean()
   @IsNotEmpty()
   isShared: boolean;
-
-  @ApiProperty({
-    description: 'Đã thanh toán chưa?',
-    example: true,
-  })
-  @IsBoolean()
-  @IsNotEmpty()
-  isPaid: boolean;
 
   @ApiPropertyOptional({
     description: 'ID người hưởng mục chi (nếu không phải chia đều)',

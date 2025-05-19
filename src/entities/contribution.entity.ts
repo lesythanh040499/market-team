@@ -8,28 +8,28 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
-@Entity()
+@Entity('contribution')
 export class Contribution extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
-  user_id: number;
+  @Column({ name: 'user_id', type: 'text' })
+  userId: number;
 
-  @Column()
+  @Column({ name: 'amount', type: 'numeric' })
   amount: number;
 
-  @Column()
-  debt_paid: number;
+  @Column({ name: 'debt_paid', type: 'numeric' })
+  debtPaid: number;
 
-  @Column()
-  fund_added: number;
+  @Column({ name: 'fund_added', type: 'numeric' })
+  fundAdded: number;
 
-  @Column()
+  @Column({ name: 'date', type: 'date' })
   date: Date;
 
-  @Column()
-  image_transaction: string;
+  @Column({ name: 'image_transaction', type: 'text' })
+  imageTransaction: string;
 
   @CreateDateColumn({
     type: 'timestamp',

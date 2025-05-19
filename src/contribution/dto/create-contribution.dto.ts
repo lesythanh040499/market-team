@@ -5,7 +5,7 @@ import { ApiProperty } from '@nestjs/swagger';
 export class CreateContributionDto {
   @ApiProperty({ example: 1, description: 'ID của người dùng đóng góp' })
   @IsInt()
-  user_id: number;
+  userId: number;
 
   @ApiProperty({ example: 1000000, description: 'Tổng số tiền đóng góp' })
   @IsInt()
@@ -14,11 +14,11 @@ export class CreateContributionDto {
 
   @ApiProperty({ example: 500000, description: 'Số tiền đã trả nợ' })
   @IsInt()
-  debt_paid: number;
+  debtPaid: number;
 
   @ApiProperty({ example: 500000, description: 'Số tiền thêm vào quỹ' })
   @IsInt()
-  fund_added: number;
+  fundAdded: number;
 
   @ApiProperty({
     example: '2025-05-18',

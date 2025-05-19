@@ -52,8 +52,25 @@ export class ExpenseService {
     };
   }
 
-  findAll() {
-    return `This action returns all expense`;
+  async findAll() {
+    // const data = await this.expenseRepository.query(`
+    //   SELECT e.*, JSON_BUILD_OBJECT(
+    //     ei.*
+    //   ) as expense_item FROM expense AS e
+    //   LEFT JOIN expense_item AS ei ON ei.expense_id = e.id
+    //   `);
+    const cc = await this.expenseRepository.query(`
+      SELECT 
+        e.*,
+        (
+          SELECT json_agg(to_json(ei))
+          FROM expense_item ei
+          WHERE ei.expense_id = e.id
+        ) as expense_item
+      FROM expense e
+    `);
+
+    return cc;
   }
 
   async findOne(id: number) {

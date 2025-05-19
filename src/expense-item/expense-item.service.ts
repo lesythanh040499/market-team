@@ -4,7 +4,7 @@ import { UpdateExpenseItemDto } from './dto/update-expense-item.dto';
 
 @Injectable()
 export class ExpenseItemService {
-  create(createExpenseItemDto: CreateExpenseItemDto) {
+  create(_createExpenseItemDto: CreateExpenseItemDto) {
     return 'This action adds a new expenseItem';
   }
 
@@ -16,7 +16,7 @@ export class ExpenseItemService {
     return `This action returns a #${id} expenseItem`;
   }
 
-  update(id: number, updateExpenseItemDto: UpdateExpenseItemDto) {
+  update(id: number, _updateExpenseItemDto: UpdateExpenseItemDto) {
     return `This action updates a #${id} expenseItem`;
   }
 
