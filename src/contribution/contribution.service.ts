@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import { CreateContributionDto } from './dto/create-contribution.dto';
-import { Contribution } from 'src/entities/contribution.entity';
 import { InjectRepository } from '@nestjs/typeorm';
+import { Contribution } from 'src/entities/contribution.entity';
 import { Repository } from 'typeorm';
+import { CreateContributionDto } from './dto/create-contribution.dto';
 
 @Injectable()
 export class ContributionService {
@@ -18,8 +18,25 @@ export class ContributionService {
     return this.contributionsRepository.save(contribution);
   }
 
-  findAll() {
-    return this.contributionsRepository.find();
+  async findAll() {
+    const results = await this.contributionsRepository
+      .createQueryBuilder('contribution')
+      .select([
+        `TO_CHAR(date_trunc('week', contribution.date), 'IYYY-"W"IW') AS week`,
+        `json_agg(
+            json_build_object(
+              'userId', contribution.user_id,
+              'amount', contribution.amount,
+              'date', contribution.date,
+              'evidence', contribution.image_transaction
+            ) ORDER BY contribution.date
+          ) AS details`,
+      ])
+      .groupBy(`TO_CHAR(date_trunc('week', contribution.date), 'IYYY-"W"IW')`)
+      .orderBy('week', 'DESC')
+      .getRawMany();
+
+    return results;
   }
 
   findOne(id: number) {
